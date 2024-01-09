@@ -1,17 +1,35 @@
 let soundNames = ["boom","clap","hihat","kick","openhat","ride","snare","tink","tom"];
-let soundFiles = [];
-let imageFiles = [];
+let sounds = {
+    boom:       {keys: ["Numpad7","KeyQ"], sound: null},
+    clap:       {keys: ["Numpad8","KeyW"], sound: null},
+    hihat:      {keys: ["Numpad9","KeyE"], sound: null},
+    kick:       {keys: ["Numpad4","KeyA"], sound: null},
+    openhat:    {keys: ["Numpad5","KeyS"], sound: null},
+    ride:       {keys: ["Numpad6","KeyD"], sound: null},
+    snare:      {keys: ["Numpad1","KeyZ"], sound: null},
+    tink:       {keys: ["Numpad2","KeyX"], sound: null},
+    tom:        {keys: ["Numpad3","KeyC"], sound: null},
+}
+let soundList = [];
 
 let container = document.getElementsByClassName("instrumentRow");
 
-let instruments = {
-    cymbal: ["openhat", "hihat"],
-    smalldrum: ["snare"],
-    bigdrum: ["boom", "kick"],
-    mediumdrum: ["tom"],
-    othercymbal: ["ride"],
-    randrum: soundNames,
+for (let i in sounds) {
+    sounds[i]["sound"] = new Audio(`./sounds/${i}.wav`);
+    soundList.push(sounds[i]["sound"]);
 }
+
+console.log(soundList);
+
+let instruments = {
+    cymbal:         [sounds.openhat.sound, sounds.hihat.sound],
+    smalldrum:      [sounds.snare.sound],
+    bigdrum:        [sounds.boom.sound, sounds.kick.sound],
+    mediumdrum:     [sounds.tom.sound],
+    othercymbal:    [sounds.ride.sound],
+    randrum:        soundList,
+}
+
 
 const chooseRandom = (list) => {
     return list[ Math.floor(Math.random()*list.length) ]
@@ -21,9 +39,6 @@ const chooseRandom = (list) => {
 // and add the respective image files.
 for (let i in instruments) {
     let instrument = instruments[i];
-    for (let s in instrument) {
-        instrument[s] = new Audio(`./sounds/${instrument[s]}.wav`);
-    }
     
     imageHolder = document.createElement("div");
     imageHolder.classList.add("imageHolder");
@@ -31,7 +46,8 @@ for (let i in instruments) {
     image.src = `./images/${i}.png`
     image.classList.add(i, "instrument");
     imageHolder.addEventListener("click", (e) => {
-        let sound = chooseRandom(instruments[e.target.classList[0]])
+        let sound = chooseRandom(instruments[e.target.classList[0]]);
+        console.log(sound);
         // Allows the sound to play from the beginning if it hasn't finished
         sound.currentTime = 0; 
         sound.play();
