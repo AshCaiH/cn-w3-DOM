@@ -12,13 +12,13 @@ document.addEventListener("keypress", (e) => {
 
     // Setting the outputsContainer structure here so if we decided to add more
     // outputs later on, we wouldn't need to adjust the HTML file at all.
-    let outputString = ""
-    for (let i = 0; i < outputs.length; i++) {        
-        outputString += `<div class="outputItem">`
-        outputString += `<label class="label">${outputLabels[i]}</label>`
-        outputString += `<p class="outputText">${outputs[i]}</p>`
-        outputString += `</div>`
+    outputsContainer.textContent = "";
+    for (let i = 0; i < outputs.length; i++) {
+        let outputItem = document.createElement("div");
+        outputItem.classList.add("outputItem");
+        outputItem.innerHTML += `<label class="label">${outputLabels[i]}</label>`
+        outputItem.innerHTML += `<p class="outputText">${outputs[i]}</p>`
+        outputsContainer.appendChild(outputItem);
     }
-    outputsContainer.innerHTML = outputString;
     textbox.value = e.key;
 });
