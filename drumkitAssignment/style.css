@@ -2,18 +2,30 @@ body {
     font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     text-align: center;
     background-color: #7e7e7e;
+    height: calc(100vh - 10px);
+    display:flex;
+    align-items: center;
+    justify-content: center;
 }
 
-main {
+.instrumentRow {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     align-items: center;
     column-gap: -500px;
     justify-content: center;
-    height: 100vh;
 }
 
-.imageHolder {
-    
+.shrink {
+    animation: growBack;
+    animation-duration: 0.5s;
+    animation-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
+
+
+@keyframes growBack {
+    from {scale: 0.8;}
+    to {scale: 1.0;}
 }

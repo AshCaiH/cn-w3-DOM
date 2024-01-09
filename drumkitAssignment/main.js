@@ -2,7 +2,7 @@ let soundNames = ["boom","clap","hihat","kick","openhat","ride","snare","tink","
 let soundFiles = [];
 let imageFiles = [];
 
-let container = document.getElementById("content");
+let container = document.getElementsByClassName("instrumentRow");
 
 let instruments = {
     cymbal: ["openhat", "hihat"],
@@ -32,11 +32,16 @@ for (let i in instruments) {
     image.classList.add(i, "instrument");
     imageHolder.addEventListener("click", (e) => {
         let sound = chooseRandom(instruments[e.target.classList[0]])
-        // Without this, the sound has to completely finish before it can be played again
+        // Allows the sound to play from the beginning if it hasn't finished
         sound.currentTime = 0; 
         sound.play();
-        e.target.style.scale = 0.8;
+
+        e.target.classList.remove("shrink");
+        void e.target.offsetWidth; // Needed to reset the animation.
+        e.target.classList.add("shrink");
+        
     });
     imageHolder.appendChild(image);
-    container.appendChild(imageHolder);
+    if (i == "randrum") container[1].appendChild(imageHolder);
+    else container[0].appendChild(imageHolder);
 }
