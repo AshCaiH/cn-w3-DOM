@@ -30,7 +30,7 @@ for (let i in instruments) {
     image = document.createElement("img");
     image.src = `./images/${i}.png`
     image.classList.add(i, "instrument");
-    image.addEventListener("click", (e) => {
+    imageHolder.addEventListener("click", (e) => {
         let sound = chooseRandom(instruments[e.target.classList[0]])
         // Without this, the sound has to completely finish before it can be played again
         sound.currentTime = 0; 
