@@ -23,9 +23,13 @@ body {
     animation-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
 }
 
-
-
 @keyframes growBack {
     from {scale: 0.8;}
     to {scale: 1.0;}
+}
+
+@media screen and (max-width: 800px) {
+    img {
+        max-width: 60%;
+    }
 }
