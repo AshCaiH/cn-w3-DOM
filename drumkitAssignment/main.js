@@ -61,3 +61,17 @@ for (let i in instruments) {
     if (i == "randrum") container[1].appendChild(imageHolder);
     else container[0].appendChild(imageHolder);
 }
+
+document.addEventListener("keydown", (e) => {
+    for (let i in sounds) {
+        let soundObject = sounds[i];
+        // console.log(soundObject.keys);
+        for (key in soundObject.keys) {
+            if (e.code == soundObject.keys[key]) {
+                soundObject.sound.currentTime = 0; 
+                soundObject.sound.play();
+                return;
+            }
+        }
+    }
+});

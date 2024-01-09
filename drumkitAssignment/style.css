@@ -13,7 +13,6 @@ body {
     flex-direction: row;
     flex-wrap: wrap;
     align-items: center;
-    column-gap: -500px;
     justify-content: center;
 }
 
@@ -23,13 +22,25 @@ body {
     animation-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
 }
 
+.randrum {
+    margin-top: 30px;
+}
+
 @keyframes growBack {
     from {scale: 0.8;}
     to {scale: 1.0;}
 }
 
-@media screen and (max-width: 800px) {
+@media screen and (max-width: 1000px) {
     img {
         max-width: 60%;
+    }
+
+    .imageHolder {
+        margin: auto -20px;
+    }
+
+    .randrum {
+        margin-top: 60px;
     }
 }
