@@ -7,13 +7,13 @@ Score display
 
 */
 
-const pips = [
+const pipStrings = [
     "    x    ",
     "x       x",
     "x   x   x",
     "x x   x x",
     "x x x x x",
-    "xxx   xxx",
+    "x xx xx x",
 ]
 
 let playerScore = null;
@@ -36,19 +36,25 @@ const initialise = () => {
     playmat.dice.face = playmat.dice.object.getElementsByClassName("diceFace")[0];
     playmat.scoreDisplay = playmat.object.getElementsByClassName("score")[0];
 
-    playmat.dice.face.pips = playmat.dice.face.getElementsByClassName("pip");
+    playmat.dice.pips = playmat.dice.face.getElementsByClassName("pip");
+
+    for (p of playmat.dice.pips) console.log(p);
 
     playmat.dice.object.classList.remove("lost");
 }
 
 const diceRoll = () => {
-    if (gameEnded) return;
+    // if (gameEnded) return;
     // Generate number
     // If number == 1: lose
     // Add to score
     // If score > 20: win
     let rollScore = Math.ceil( Math.random() * 6 );
-    playmat.dice.face.textContent = rollScore;
+
+    console.log(rollScore);
+
+    setPips(playmat.dice.pips, rollScore);
+    // playmat.dice.face.textContent = rollScore;
     playmat.score += rollScore;    
 
     if (rollScore == 1) {
@@ -61,8 +67,14 @@ const diceRoll = () => {
     if (playmat.score >= 20) gameEnded = true;
 }
 
-const setPips = (dice) => {
-    
+const setPips = (pipList, score) => {
+    // Work out which pips need to be visible on the dice.
+    // Compares against a list of strings at the top of the script.
+    for (let i = 0; i < pipList.length; i++) {
+        console.log(pipList[i]);
+        if (pipStrings[score-1][i] == "x") pipList[i].classList.remove("empty");
+        else pipList[i].classList.add("empty");
+    }
 }
 
 initialise();
