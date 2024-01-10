@@ -19,8 +19,6 @@ for (let i in sounds) {
     soundList.push(sounds[i]["sound"]);
 }
 
-console.log(soundList);
-
 let instruments = {
     cymbal:         [sounds.openhat.sound, sounds.hihat.sound],
     smalldrum:      [sounds.snare.sound],
