@@ -1,0 +1,73 @@
+:root {
+    --diceSize: 60px;
+    --pipSize: 8px;
+    --faceMargin: 14px;
+}
+
+body {
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    text-align: center;
+}
+
+.dice {
+    overflow: hidden;
+    width: fit-content;
+    border-radius: 5px;
+    box-shadow: 0px 13px 10px black;
+    user-select: none;
+}
+
+.diceFace {
+    height: var(--diceSize);
+    width: var(--diceSize);
+    background-color: beige;
+    box-shadow: 0px 0px 10px rgb(187, 156, 98) inset;
+    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.playmat {
+    width: 300px;
+    height: 400px;
+    background-color: rgba(84, 109, 67, 0.76);
+    padding: 20px;
+    box-shadow: 0px 3px 5px black;
+}
+
+.objects {
+    display: none;
+}
+
+.lost .diceFace {
+    color: white;
+    background-color: rgb(182, 26, 91);
+    box-shadow: 0px 0px 10px rgb(118, 40, 138) inset;
+}
+
+.pips {
+    height: calc( var(--diceSize) - var(--faceMargin));
+    width: calc( var(--diceSize) - var(--faceMargin));
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-betwe;
+    align-items: center;
+}
+
+.pip {
+    flex-basis: 33%;
+    display: flex;
+    justify-content: center;
+}
+
+.pipdot {
+    border-radius: 10px;
+    width: var(--pipSize);
+    height: var(--pipSize);
+    background-color: #403C30;
+}
+
+.empty.pipdot {
+    opacity: 0;
+}
