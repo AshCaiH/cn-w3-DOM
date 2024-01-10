@@ -44,6 +44,7 @@ for (let i in instruments) {
     image = document.createElement("img");
     image.src = `./images/${i}.png`
     image.classList.add(i, "instrument");
+    image.setAttribute("draggable", "false");
     imageHolder.addEventListener("click", (e) => {
         let sound = chooseRandom(instruments[e.target.classList[0]]);
         console.log(sound);
