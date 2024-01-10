@@ -2,11 +2,20 @@
     --diceSize: 60px;
     --pipSize: 8px;
     --faceMargin: 20px;
+    --shadowColour: #0a1f25;
 }
 
 body {
     font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     text-align: center;
+    background-color: rgb(63, 60, 80);
+    user-select: none;
+}
+
+#container {
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .dice {
@@ -14,8 +23,7 @@ body {
     height: calc( var(--diceSize) + 10px );
     width: fit-content;
     border-radius: 5px;
-    box-shadow: 0px 10px 6px #25424b;
-    user-select: none;
+    box-shadow: 0px 3px 6px var(--shadowColour);
 }
 
 .diceFace {
@@ -33,11 +41,14 @@ body {
     width: 300px;
     background-color: rgba(84, 109, 67, 0.76);
     padding: 20px;
-    box-shadow: 0px 3px 5px #25424b;
+    box-shadow: 0px 3px 8px #041216;
     padding: 60px;
+    align-self: center;
+    order: 1;
+    margin: 20px;
 }
 
-.objects {
+.hidden {
     display: none;
 }
 
@@ -48,12 +59,12 @@ body {
 
 .lost {
     box-sizing: border-box;
-    border: solid 2px white;
+    background-color: rgb(126, 37, 74);;
 }
 
 .lost .diceFace {
     color: white;
-    background-color: rgb(212, 49, 117);
+    background-color: rgb(228, 117, 163);
     box-shadow: 0px 0px 10px rgb(102, 30, 81) inset;
 }
 
@@ -89,13 +100,24 @@ body {
 
 .scoreBox {
     background-color: #F5F5DC;
-    box-shadow: 0px 2px 5px  #25424b;
+    box-shadow: 0px 2px 5px  var(--shadowColour);
     padding: 6px 20px 0;
     rotate: 0.5deg;
+    width: 120px;
 }
 
 .score {
     font-size: 24pt;
     font-weight: bold;
     font-family:'Courier New', Courier, monospace;
+}
+
+#replayBtn {
+    background-color: white;
+    border-radius: 40px;
+    order: 2;
+    width:fit-content;
+    padding: 10px 20px 13px;
+    align-self: center;
+    margin: 20px;
 }
