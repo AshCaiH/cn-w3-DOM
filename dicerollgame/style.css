@@ -19,6 +19,7 @@ body {
 }
 
 .dice {
+    position: relative;
     overflow: hidden;
     height: calc( var(--diceSize) + 10px );
     width: fit-content;

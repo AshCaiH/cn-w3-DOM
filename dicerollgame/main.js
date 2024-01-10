@@ -36,16 +36,20 @@ const initialise = () => {
     playmat.dice.object.classList.remove("lost");
     playmat.scoreDisplay.textContent = playmat.score;
 
-    playmat.dice.object.addEventListener("click", diceRoll);
+    playmat.object.addEventListener("click", diceRoll);
     document.getElementById("container").appendChild(playmat.object);
 }
 
 const diceRoll = () => {
     if (gameEnded) return;
+
+    playmat.dice.object.style.rotate = `${Math.random() * 20 - 10}deg`
+    playmat.dice.object.style.top = `${Math.random() * 10 - 5}px`
+    playmat.dice.object.style.left = `${Math.random() * 10 - 5}px`
     let rollScore = Math.ceil( Math.random() * 6 );
 
     setPips(playmat.dice.pips, rollScore);
-    playmat.score += rollScore;    
+    playmat.score += rollScore;
 
     if (rollScore == 1) {
         endGame(false)
