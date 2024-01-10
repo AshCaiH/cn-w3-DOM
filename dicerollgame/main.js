@@ -41,20 +41,19 @@ const initialise = () => {
     for (p of playmat.dice.pips) console.log(p);
 
     playmat.dice.object.classList.remove("lost");
+    playmat.scoreDisplay.textContent = playmat.score;
 }
 
 const diceRoll = () => {
-    // if (gameEnded) return;
-    // Generate number
-    // If number == 1: lose
-    // Add to score
-    // If score > 20: win
+    
+    playmat.dice.object.style.position = "2px";
+
+    if (gameEnded) return;
     let rollScore = Math.ceil( Math.random() * 6 );
 
     console.log(rollScore);
 
     setPips(playmat.dice.pips, rollScore);
-    // playmat.dice.face.textContent = rollScore;
     playmat.score += rollScore;    
 
     if (rollScore == 1) {

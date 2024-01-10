@@ -11,14 +11,15 @@ body {
 
 .dice {
     overflow: hidden;
+    height: calc( var(--diceSize) + 10px );
     width: fit-content;
     border-radius: 5px;
-    box-shadow: 0px 13px 10px black;
+    box-shadow: 0px 10px 6px #25424b;
     user-select: none;
 }
 
 .diceFace {
-    height: var(--diceSize);
+    height: calc( var(--diceSize) );
     width: var(--diceSize);
     background-color: beige;
     box-shadow: 0px 0px 10px rgb(187, 156, 98) inset;
@@ -30,20 +31,30 @@ body {
 
 .playmat {
     width: 300px;
-    height: 400px;
     background-color: rgba(84, 109, 67, 0.76);
     padding: 20px;
-    box-shadow: 0px 3px 5px black;
+    box-shadow: 0px 3px 5px #25424b;
+    padding: 60px;
 }
 
 .objects {
     display: none;
 }
 
+.gameElements {
+    display: flex;
+    justify-content: space-between;
+}
+
+.lost {
+    box-sizing: border-box;
+    border: solid 2px white;
+}
+
 .lost .diceFace {
     color: white;
-    background-color: rgb(182, 26, 91);
-    box-shadow: 0px 0px 10px rgb(206, 131, 224) inset;
+    background-color: rgb(212, 49, 117);
+    box-shadow: 0px 0px 10px rgb(102, 30, 81) inset;
 }
 
 .pips {
@@ -69,9 +80,22 @@ body {
 }
 
 .lost .pipdot {
-    background-color: #F4F4DA;;
+    background-color: white;;
 }
 
 .empty>.pipdot {
     opacity: 0;
+}
+
+.scoreBox {
+    background-color: #F5F5DC;
+    box-shadow: 0px 2px 5px  #25424b;
+    padding: 6px 20px 0;
+    rotate: 0.5deg;
+}
+
+.score {
+    font-size: 24pt;
+    font-weight: bold;
+    font-family:'Courier New', Courier, monospace;
 }
