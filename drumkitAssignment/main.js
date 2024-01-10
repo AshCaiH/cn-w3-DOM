@@ -1,4 +1,5 @@
 let soundNames = ["boom","clap","hihat","kick","openhat","ride","snare","tink","tom"];
+let soundList = [];
 let sounds = {
     boom:       {keys: ["Numpad7","KeyQ"], sound: null},
     clap:       {keys: ["Numpad8","KeyW"], sound: null},
@@ -10,7 +11,6 @@ let sounds = {
     tink:       {keys: ["Numpad2","KeyX"], sound: null},
     tom:        {keys: ["Numpad3","KeyC"], sound: null},
 }
-let soundList = [];
 
 let container = document.getElementsByClassName("instrumentRow");
 
@@ -30,10 +30,11 @@ let instruments = {
     randrum:        soundList,
 }
 
-
 const chooseRandom = (list) => {
     return list[ Math.floor(Math.random()*list.length) ]
 }
+
+const hideInstructions = () => document.getElementById("instructions").classList.add("hidden");
 
 // Go through instruments and replace filenames with the audio objects
 // and add the respective image files.
@@ -63,6 +64,11 @@ for (let i in instruments) {
 }
 
 document.addEventListener("keydown", (e) => {
+    if (e.code == "Space") {
+        hideInstructions();
+        return;
+    }
+
     for (let i in sounds) {
         let soundObject = sounds[i];
         // console.log(soundObject.keys);
@@ -74,4 +80,8 @@ document.addEventListener("keydown", (e) => {
             }
         }
     }
+});
+
+document.getElementById("instructions").addEventListener("click", (e) => {
+    hideInstructions();
 });

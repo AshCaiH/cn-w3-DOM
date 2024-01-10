@@ -1,11 +1,22 @@
 body {
     font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     text-align: center;
+    background: radial-gradient(transparent 0%, #302e24 140%);
+    background-size: cover;
+    background-size: cover;
     background-color: #7e7e7e;
-    height: calc(100vh - 10px);
+    min-height: calc(100vh - 20px);
     display:flex;
     align-items: center;
     justify-content: center;
+}
+
+#instructions {
+    color: #DDDDDB;
+}
+
+.hideInstructions {
+    color: #AAAAA9;
 }
 
 .instrumentRow {
@@ -26,12 +37,16 @@ body {
     margin-top: 30px;
 }
 
+.hidden {
+    display: none;
+}
+
 @keyframes growBack {
     from {scale: 0.8;}
     to {scale: 1.0;}
 }
 
-@media screen and (max-width: 1000px) {
+@media screen and (max-width: 1245px) {
     img {
         max-width: 60%;
     }
@@ -42,5 +57,13 @@ body {
 
     .randrum {
         margin-top: 60px;
+    }
+
+    div:has(.bigdrum) {
+        order: 5;
+    }
+
+    #instructions {
+        margin-bottom: 20px;
     }
 }
