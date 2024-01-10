@@ -20,12 +20,18 @@ for (let i in sounds) {
 }
 
 let instruments = {
-    cymbal:         [sounds.openhat.sound, sounds.hihat.sound],
-    smalldrum:      [sounds.snare.sound],
-    bigdrum:        [sounds.boom.sound, sounds.kick.sound],
-    mediumdrum:     [sounds.tom.sound],
-    othercymbal:    [sounds.ride.sound],
-    randrum:        soundList,
+    cymbal:         { alt: "Cymbal",
+                    sounds: [sounds.openhat.sound, sounds.hihat.sound]},
+    smalldrum:      { alt: "Small drum",
+                    sounds: [sounds.snare.sound]},
+    bigdrum:        { alt: "Big drum",
+                    sounds: [sounds.boom.sound, sounds.kick.sound]},
+    mediumdrum:     { alt: "Medium drum",
+                    sounds: [sounds.tom.sound]},
+    othercymbal:    { alt: "Other cymbal",
+                    sounds: [sounds.ride.sound]},
+    randrum:        { alt: "Random instrument",
+                    sounds: soundList}
 }
 
 const chooseRandom = (list) => {
@@ -45,9 +51,9 @@ for (let i in instruments) {
     image.src = `./images/${i}.png`
     image.classList.add(i, "instrument");
     image.setAttribute("draggable", "false");
+    image.setAttribute("alt", instrument.alt);
     imageHolder.addEventListener("click", (e) => {
-        let sound = chooseRandom(instruments[e.target.classList[0]]);
-        console.log(sound);
+        let sound = chooseRandom(instruments[e.target.classList[0]].sounds);
         // Allows the sound to play from the beginning if it hasn't finished
         sound.currentTime = 0; 
         sound.play();
@@ -70,7 +76,6 @@ document.addEventListener("keydown", (e) => {
 
     for (let i in sounds) {
         let soundObject = sounds[i];
-        // console.log(soundObject.keys);
         for (key in soundObject.keys) {
             if (e.code == soundObject.keys[key]) {
                 soundObject.sound.currentTime = 0; 
