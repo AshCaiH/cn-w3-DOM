@@ -51,10 +51,7 @@ const initialise = () => {
         playmat.dice.object.style.left = `0px`
 
         playmat.scoreDisplay = playmat.object.getElementsByClassName("score")[0];
-        playmat.scoreDisplay.textContent = playmat.score;
-
         playmat.roundScoreDisplay = playmat.object.getElementsByClassName("roundScore")[0];
-        playmat.roundScoreDisplay.textContent = playmat.roundScore;
         
         dice.face = dice.object.getElementsByClassName("diceFace")[0];
         dice.pips = dice.face.getElementsByClassName("pip");
@@ -70,8 +67,9 @@ const initialise = () => {
     }
     
     setActive();
-    // Hide or show elements depending on number of players.
+    updateScoreText();
 
+    // Hide or show elements depending on number of players.
     if (players > 1) {
         for (let item of document.querySelectorAll(".multiOff")) {
             item.classList.remove("multiOff");
@@ -124,7 +122,6 @@ const diceRoll = (e) => {
             return;
         }
 
-        playmat.scoreDisplay.textContent = playmat.score;
         if (playmat.score >= 20) endGame(true);
     } else {
         // Multiplayer rules
@@ -138,14 +135,13 @@ const diceRoll = (e) => {
             setActive();
         }
 
-        playmat.roundScoreDisplay.textContent = playmat.roundScore;
-
         if (playmat.roundScore + playmat.score >= targetScore) {
             playmat.score += playmat.roundScore;
-            playmat.scoreDisplay.textContent = playmat.score;
             endGame(true);
         }
     }
+
+    updateScoreText();
 }
 
 const pass = (e) => {
