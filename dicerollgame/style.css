@@ -38,15 +38,22 @@ body {
     justify-content: center;
 }
 
+.playmatHolder {    
+    box-shadow: 0px 3px 8px #041216;    
+    margin: 20px;
+    width:fit-content;    
+    align-self: center;
+}
+
 .playmat {
     width: 300px;
     background-color: rgba(84, 109, 67, 0.76);
-    padding: 20px;
-    box-shadow: 0px 3px 8px #041216;
-    padding: 60px;
-    align-self: center;
+    padding: 20px 60px;
     order: 1;
-    margin: 20px;
+}
+
+.inactive>.playmat {
+    filter: saturate(0) contrast(0.4)
 }
 
 .hidden {
@@ -56,6 +63,7 @@ body {
 .gameElements {
     display: flex;
     justify-content: space-between;
+    align-items: center;
 }
 
 .lost {
@@ -99,19 +107,39 @@ body {
     opacity: 0;
 }
 
+.scoreContainer {
+    display: flex;
+    flex-direction: column;
+}
+
 .scoreBox {
     background-color: #F5F5DC;
     box-shadow: 0px 2px 5px  var(--shadowColour);
-    padding: 6px 20px 0;
+    padding: 12px 20px 10px;
     rotate: 0.5deg;
     width: 120px;
+    margin: 10px;
 }
 
-.score {
+.score, .roundScore {
     font-size: 24pt;
     font-weight: bold;
     font-family:'Courier New', Courier, monospace;
 }
+
+.passBtn {
+    width: 20px;
+    height: 20px;
+    background-color: black;
+}
+
+.multiOff {
+    display: none;
+}
+
+/* .roundScore {
+    display: none;
+} */
 
 #replayBtn {
     background-color: white;

@@ -11,8 +11,9 @@ let replayBtn = document.getElementById("replayBtn");
 
 let gameEnded = null;
 let playmats = [];
-let players = 1;
+let players = 3;
 let activeMat = 0;
+let targetScore = 20;
 
 const initialise = () => {
     for (let i = 0; i < players; i++) {
@@ -21,38 +22,71 @@ const initialise = () => {
         if (playmat != null) playmat.object.remove();
 
         gameEnded = false;
+        activeMat = 0;
 
         replayBtn.classList.add("hidden");
 
         playmat = {    
-            object: document.getElementsByClassName("playmat")[0].cloneNode(true),
+            object: document.getElementsByClassName("playmatHolder")[0].cloneNode(true),
             score: 0,
+            roundScore: 0,
             scoreDisplay: null,
+            roundScoreDisplay: null,
             active: activeMat == i
         }
 
         playmats[i] = playmat;
         
-        playmat.dice = {
-            object: playmat.object.getElementsByClassName("dice")[0]
-        }
-        playmat.dice.face = playmat.dice.object.getElementsByClassName("diceFace")[0];
+        let dice = playmat.dice = {object: playmat.object.getElementsByClassName("dice")[0]}
+
         playmat.scoreDisplay = playmat.object.getElementsByClassName("score")[0];
-
-        playmat.dice.pips = playmat.dice.face.getElementsByClassName("pip");
-
-        playmat.dice.object.classList.remove("lost");
         playmat.scoreDisplay.textContent = playmat.score;
 
-        playmat.object.addEventListener("click", diceRoll);
+        playmat.roundScoreDisplay = playmat.object.getElementsByClassName("roundScore")[0];
+        playmat.roundScoreDisplay.textContent = playmat.roundScore;
+        
+        dice.face = dice.object.getElementsByClassName("diceFace")[0];
+        dice.pips = dice.face.getElementsByClassName("pip");
+        dice.object.classList.remove("lost");
+        dice.object.addEventListener("click", diceRoll);        
+
         document.getElementById("container").appendChild(playmat.object);
+    }
+
+    // Hide or show elements depending on number of players.
+    console.log(document.getElementsByClassName("multiOff"))
+    if (players > 1) {
+        for (item of document.getElementsByClassName("multiOff")) {            
+            item.classList.remove("multiOff");
+            item.classList.add("multiOn");
+        }
+    } else {
+        for (item of document.getElementsByClassName("multiOn")) {
+            item.classList.remove("multiOn");
+            item.classList.add("multiOff");
+        }
+    }
+
+    setActive();
+}
+
+const setActive = () => {
+    for (let i in playmats) {
+        let playmat = playmats[i];
+        if (activeMat == i) playmat.object.classList.remove("inactive");
+        else playmat.object.classList.add("inactive");
     }
 }
 
-const diceRoll = () => {
+const diceRoll = (e) => {
     if (gameEnded) return;
 
     let playmat = playmats[activeMat];
+
+    console.log(playmat.object.contains(e.target));
+
+    // If the dice being clicked isn't in the active playmat, ignore it.
+    if (!playmat.object.contains(e.target)) return;
 
     playmat.dice.object.style.rotate = `${Math.random() * 20 - 10}deg`
     playmat.dice.object.style.top = `${Math.random() * 10 - 5}px`
@@ -60,20 +94,46 @@ const diceRoll = () => {
     let rollScore = Math.ceil( Math.random() * 6 );
 
     setPips(playmat.dice.pips, rollScore);
-    playmat.score += rollScore;
 
-    if (rollScore == 1) {
-        endGame(false)
-        playmat.dice.object.classList.add("lost");
-        return;
+    if (players == 1) {
+
+        // Single Player Rules
+        playmat.score += rollScore;
+
+        if (rollScore == 1) {
+            endGame(false)
+            playmat.dice.object.classList.add("lost");
+            return;
+        }
+
+        playmat.scoreDisplay.textContent = playmat.score;
+        if (playmat.score >= 20) endGame(true);
+    } else {
+
+        // Multiplayer rules
+        playmat.roundScore += rollScore;
+
+        if (rollScore == 1) {
+            playmat.roundScore = 0;
+            activeMat += 1;
+
+            if (activeMat == players) activeMat = 0;
+            setActive();
+        }
+
+        playmat.roundScoreDisplay.textContent = playmat.roundScore;
+
+        if (playmat.roundScore + playmat.score >= targetScore) {
+            playmat.score += playmat.roundScore;
+            playmat.scoreDisplay.textContent = playmat.score;
+            endGame(true);
+        }
     }
-
-    playmat.scoreDisplay.textContent = playmat.score;
-    if (playmat.score >= 20) endGame(true);
 }
 
 const endGame = (isWin) => {
-    document.getElementsByClassName("scoreLabel")[0].textContent = "Final Score";
+    // TODO: Change all playmats to say final score.
+    document.getElementsByClassName("scoreLabel")[1].textContent = "Final Score";
     gameEnded = true;
 
     replayBtn.classList.remove("hidden");
