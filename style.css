@@ -1,8 +1,17 @@
 body {
     font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    text-align: center;
     background-color: rgb(130, 126, 155);
-    user-select: none;
+    user-select: none;    
+    color: white;
+}
+
+h1 {
+    text-align: center;
+}
+
+h2 {
+    font-weight: normal;
+    margin-bottom: 0;;
 }
 
 ul {
@@ -10,28 +19,57 @@ ul {
     display: flex;
     flex-direction: row;
     justify-content: center;
-    align-items: ;
+    flex-wrap: wrap;
+    padding: 0;
 }
 
 li {
-    display:flex;
-    flex-direction: column;
-    margin: 20px;
-    width: 150px;
+    display: flex;
+    margin: 20px 40px;
+    text-align: ce;
 }
 
-img {
+.thumb {
+    top: 0;
+    position: relative;
     height: 130px;
     width: 130px;
-    border-radius: 20px;
+    border-radius: 10px;
     object-fit: cover;
-    margin-bottom: -20px;
-    border: solid 2px white;
-    box-shadow: 0px 5px 10px rgb(94, 69, 126);
+    border: dashed 1px white;
+    padding: 3px;
+    box-shadow: 0px 5px 10px rgba(46, 33, 63, 0.5);
+    align-self: center;
 }
 
 a {
+    color: rgb(192, 210, 247);
     text-decoration: none;
-    color: black;
-    font-size: 20pt;
+    font-weight: 500;
+    display: flex;
+    flex-direction: column;
+}
+
+a:hover {
+    color: white;
+}
+
+a:hover .thumb {
+    box-shadow: none;
+    top: 2px;
+}
+
+.itemInfo {
+    text-align: center;
+    margin: 10px;
+    width: 320px;
+    display: flex;
+    flex-direction: column;
+}
+
+.ghlogo {
+    position: relative;
+    top: 5px;
+    height: 22px;
+    margin-right: 6px;
 }
