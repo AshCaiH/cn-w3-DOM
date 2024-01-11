@@ -66,6 +66,12 @@ body {
     align-items: center;
 }
 
+.controls {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 .lost {
     box-sizing: border-box;
     background-color: rgb(126, 37, 74);;
@@ -128,9 +134,19 @@ body {
 }
 
 .passBtn {
-    width: 20px;
-    height: 20px;
-    background-color: black;
+    width: var(--diceSize);
+    height: calc(var(--diceSize) / 2);
+    background-color: rgb(109, 148, 76);
+    margin: 30px 0 0;
+    box-shadow: 0px 2px 5px  var(--shadowColour);
+    border-radius: 3px;
+}
+
+.passBtn p {
+    position: relative;
+    top: -12px;
+    font-weight: bold;
+    color: #252D21;
 }
 
 .multiOff {

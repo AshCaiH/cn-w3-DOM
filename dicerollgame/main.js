@@ -11,7 +11,7 @@ let replayBtn = document.getElementById("replayBtn");
 
 let gameEnded = null;
 let playmats = [];
-let players = 3;
+let players = 2;
 let activeMat = 0;
 let targetScore = 20;
 
@@ -38,6 +38,9 @@ const initialise = () => {
         playmats[i] = playmat;
         
         let dice = playmat.dice = {object: playmat.object.getElementsByClassName("dice")[0]}
+        playmat.dice.object.style.rotate = `0deg`
+        playmat.dice.object.style.top = `0px`
+        playmat.dice.object.style.left = `0px`
 
         playmat.scoreDisplay = playmat.object.getElementsByClassName("score")[0];
         playmat.scoreDisplay.textContent = playmat.score;
@@ -48,26 +51,33 @@ const initialise = () => {
         dice.face = dice.object.getElementsByClassName("diceFace")[0];
         dice.pips = dice.face.getElementsByClassName("pip");
         dice.object.classList.remove("lost");
-        dice.object.addEventListener("click", diceRoll);        
+        dice.object.addEventListener("click", diceRoll);
+
+        setPips(playmat.dice.pips, 1);
+
+        let passBtn = playmat.object.getElementsByClassName("passBtn")[0];
+        passBtn.addEventListener("click", pass);
 
         document.getElementById("container").appendChild(playmat.object);
     }
-
+    
+    setActive();
     // Hide or show elements depending on number of players.
-    console.log(document.getElementsByClassName("multiOff"))
+
     if (players > 1) {
-        for (item of document.getElementsByClassName("multiOff")) {            
+        for (let item of document.querySelectorAll(".multiOff")) {
             item.classList.remove("multiOff");
-            item.classList.add("multiOn");
         }
     } else {
-        for (item of document.getElementsByClassName("multiOn")) {
+        for (item of document.querySelectorAll(".multiOff")) {
             item.classList.remove("multiOn");
             item.classList.add("multiOff");
         }
     }
 
-    setActive();
+    multiItems = document.getElementsByClassName("multiOff")
+    console.log(multiItems.length);
+
 }
 
 const setActive = () => {
@@ -78,15 +88,19 @@ const setActive = () => {
     }
 }
 
+const checkActive = (e) => {
+    if (gameEnded) return false;
+    if (playmats[activeMat].object.contains(e.target)) return true;
+    else return false;
+}
+
 const diceRoll = (e) => {
     if (gameEnded) return;
 
     let playmat = playmats[activeMat];
 
-    console.log(playmat.object.contains(e.target));
-
     // If the dice being clicked isn't in the active playmat, ignore it.
-    if (!playmat.object.contains(e.target)) return;
+    if (!checkActive(e)) return;
 
     playmat.dice.object.style.rotate = `${Math.random() * 20 - 10}deg`
     playmat.dice.object.style.top = `${Math.random() * 10 - 5}px`
@@ -96,7 +110,6 @@ const diceRoll = (e) => {
     setPips(playmat.dice.pips, rollScore);
 
     if (players == 1) {
-
         // Single Player Rules
         playmat.score += rollScore;
 
@@ -109,7 +122,6 @@ const diceRoll = (e) => {
         playmat.scoreDisplay.textContent = playmat.score;
         if (playmat.score >= 20) endGame(true);
     } else {
-
         // Multiplayer rules
         playmat.roundScore += rollScore;
 
@@ -128,6 +140,28 @@ const diceRoll = (e) => {
             playmat.scoreDisplay.textContent = playmat.score;
             endGame(true);
         }
+    }
+}
+
+const pass = (e) => {
+    if (!checkActive(e)) return;
+
+    let playmat = playmats[activeMat];
+
+    playmat.score += playmat.roundScore;
+    playmat.roundScore = 0;
+    updateScoreText();
+    
+    activeMat += 1;
+
+    if (activeMat == players) activeMat = 0;
+    setActive();
+}
+
+const updateScoreText = () => {
+    for (let playmat of playmats) {
+        playmat.scoreDisplay.textContent = playmat.score;
+        playmat.roundScoreDisplay.textContent = playmat.roundScore;
     }
 }
 
