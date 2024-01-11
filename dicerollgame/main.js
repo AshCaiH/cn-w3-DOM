@@ -75,6 +75,7 @@ const initialise = () => {
     if (players > 1) {
         for (let item of document.querySelectorAll(".multiOff")) {
             item.classList.remove("multiOff");
+            item.classList.add("multiOn");
         }
     } else {
         for (item of document.querySelectorAll(".multiOn")) {
