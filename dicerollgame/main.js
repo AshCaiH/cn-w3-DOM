@@ -7,41 +7,52 @@ const pipStrings = [
     "x xx xx x",
 ]
 
-let playmat = null;
 let replayBtn = document.getElementById("replayBtn");
 
 let gameEnded = null;
+let playmats = [];
+let players = 1;
+let activeMat = 0;
 
 const initialise = () => {
-    if (playmat != null) playmat.object.remove();
+    for (let i = 0; i < players; i++) {
+        let playmat = playmats[i];
 
-    gameEnded = false;
+        if (playmat != null) playmat.object.remove();
 
-    replayBtn.classList.add("hidden");
+        gameEnded = false;
 
-    playmat = {    
-        object: document.getElementsByClassName("playmat")[0].cloneNode(true),
-        score: 0,
-        scoreDisplay: null
+        replayBtn.classList.add("hidden");
+
+        playmat = {    
+            object: document.getElementsByClassName("playmat")[0].cloneNode(true),
+            score: 0,
+            scoreDisplay: null,
+            active: activeMat == i
+        }
+
+        playmats[i] = playmat;
+        
+        playmat.dice = {
+            object: playmat.object.getElementsByClassName("dice")[0]
+        }
+        playmat.dice.face = playmat.dice.object.getElementsByClassName("diceFace")[0];
+        playmat.scoreDisplay = playmat.object.getElementsByClassName("score")[0];
+
+        playmat.dice.pips = playmat.dice.face.getElementsByClassName("pip");
+
+        playmat.dice.object.classList.remove("lost");
+        playmat.scoreDisplay.textContent = playmat.score;
+
+        playmat.object.addEventListener("click", diceRoll);
+        document.getElementById("container").appendChild(playmat.object);
     }
-    
-    playmat.dice = {
-        object: playmat.object.getElementsByClassName("dice")[0]
-    }
-    playmat.dice.face = playmat.dice.object.getElementsByClassName("diceFace")[0];
-    playmat.scoreDisplay = playmat.object.getElementsByClassName("score")[0];
-
-    playmat.dice.pips = playmat.dice.face.getElementsByClassName("pip");
-
-    playmat.dice.object.classList.remove("lost");
-    playmat.scoreDisplay.textContent = playmat.score;
-
-    playmat.object.addEventListener("click", diceRoll);
-    document.getElementById("container").appendChild(playmat.object);
 }
 
 const diceRoll = () => {
     if (gameEnded) return;
+
+    let playmat = playmats[activeMat];
 
     playmat.dice.object.style.rotate = `${Math.random() * 20 - 10}deg`
     playmat.dice.object.style.top = `${Math.random() * 10 - 5}px`
@@ -62,7 +73,7 @@ const diceRoll = () => {
 }
 
 const endGame = (isWin) => {
-    playmat.object.getElementsByClassName("scoreLabel")[0].textContent = "Final Score";
+    document.getElementsByClassName("scoreLabel")[0].textContent = "Final Score";
     gameEnded = true;
 
     replayBtn.classList.remove("hidden");
