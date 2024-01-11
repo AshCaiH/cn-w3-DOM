@@ -7,15 +7,23 @@ const pipStrings = [
     "x xx xx x",
 ]
 
-let replayBtn = document.getElementById("replayBtn");
+let replayBtn = document.getElementsByClassName("replayBtn")[0];
 
 let gameEnded = null;
 let playmats = [];
-let players = 2;
+let players = 1;
 let activeMat = 0;
 let targetScore = 20;
 
+const playerSelect = (e) => {
+    players = e.target.getAttribute("value");
+    initialise();
+}
+
 const initialise = () => {
+    playmats = [];
+    document.getElementById("container").innerHTML = "";
+
     for (let i = 0; i < players; i++) {
         let playmat = playmats[i];
 
@@ -69,15 +77,11 @@ const initialise = () => {
             item.classList.remove("multiOff");
         }
     } else {
-        for (item of document.querySelectorAll(".multiOff")) {
+        for (item of document.querySelectorAll(".multiOn")) {
             item.classList.remove("multiOn");
             item.classList.add("multiOff");
         }
     }
-
-    multiItems = document.getElementsByClassName("multiOff")
-    console.log(multiItems.length);
-
 }
 
 const setActive = () => {
@@ -180,6 +184,10 @@ const setPips = (pipList, score) => {
         if (pipStrings[score-1][i] == "x") pipList[i].classList.remove("empty");
         else pipList[i].classList.add("empty");
     }
+}
+
+for (btn of document.getElementById("playerSelect").getElementsByClassName("btn")) {
+    btn.addEventListener("click", playerSelect);
 }
 
 initialise();

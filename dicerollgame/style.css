@@ -10,6 +10,8 @@ body {
     text-align: center;
     background-color: rgb(63, 60, 80);
     user-select: none;
+    display: flex;
+    flex-direction: column;
 }
 
 #container {
@@ -157,7 +159,7 @@ body {
     display: none;
 } */
 
-#replayBtn {
+.btn {
     background-color: white;
     border-radius: 40px;
     order: 2;
@@ -165,4 +167,9 @@ body {
     padding: 10px 20px 13px;
     align-self: center;
     margin: 20px;
+}
+
+#playerSelect {
+    display: flex;
+    justify-content: center;
 }
