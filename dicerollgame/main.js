@@ -8,6 +8,7 @@ const pipStrings = [
 ]
 
 let replayBtn = document.getElementsByClassName("replayBtn")[0];
+let resultText = document.getElementById("result");
 
 let gameEnded = null;
 let playmats = [];
@@ -23,6 +24,7 @@ const playerSelect = (e) => {
 const initialise = () => {
     playmats = [];
     document.getElementById("container").innerHTML = "";
+    resultText.textContent = "";
 
     for (let i = 0; i < players; i++) {
         let playmat = playmats[i];
@@ -172,6 +174,11 @@ const endGame = (isWin) => {
     gameEnded = true;
 
     replayBtn.classList.remove("hidden");
+
+    if (isWin) {
+        if (players == 1) resultText.textContent = `You win!`;
+        else resultText.textContent = `Player ${activeMat + 1} wins!`;
+    } else resultText.textContent = 'You rolled a one...';
 }
 
 const setPips = (pipList, score) => {
