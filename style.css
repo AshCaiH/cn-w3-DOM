@@ -59,10 +59,14 @@ a:hover .thumb {
     top: 2px;
 }
 
+p {
+    margin-bottom: 0;
+}
+
 .itemInfo {
     text-align: center;
-    margin: 10px;
-    width: 320px;
+    margin: 10px 30px;
+    width: 260px;
     display: flex;
     flex-direction: column;
 }
