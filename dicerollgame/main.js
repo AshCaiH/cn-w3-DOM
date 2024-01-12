@@ -17,7 +17,12 @@ let activeMat = 0;
 let targetScore = 20;
 
 const playerSelect = (e) => {
+    if (players == e.target.getAttribute("value")) return;
     players = e.target.getAttribute("value");
+    for (btn of document.getElementsByClassName("btn")) {
+        if (btn == e.target) btn.classList.add("selected");
+        else btn.classList.remove("selected");
+    }
     initialise();
 }
 
@@ -51,9 +56,12 @@ const initialise = () => {
         playmat.dice.object.style.rotate = `0deg`
         playmat.dice.object.style.top = `0px`
         playmat.dice.object.style.left = `0px`
-
         playmat.scoreDisplay = playmat.object.getElementsByClassName("score")[0];
         playmat.roundScoreDisplay = playmat.object.getElementsByClassName("roundScore")[0];
+
+        let passBtn = playmat.object.getElementsByClassName("passBtn")[0];
+        passBtn.addEventListener("click", pass);
+        playmat.passBtn = passBtn;
         
         dice.face = dice.object.getElementsByClassName("diceFace")[0];
         dice.pips = dice.face.getElementsByClassName("pip");
@@ -61,9 +69,6 @@ const initialise = () => {
         dice.object.addEventListener("click", diceRoll);
 
         setPips(playmat.dice.pips, 1);
-
-        let passBtn = playmat.object.getElementsByClassName("passBtn")[0];
-        passBtn.addEventListener("click", pass);
 
         document.getElementById("container").appendChild(playmat.object);
     }
@@ -88,8 +93,14 @@ const initialise = () => {
 const setActive = () => {
     for (let i in playmats) {
         let playmat = playmats[i];
-        if (activeMat == i) playmat.object.classList.remove("inactive");
-        else playmat.object.classList.add("inactive");
+        if (activeMat == i) {
+            playmat.object.classList.remove("inactive");
+            playmat.passBtn.classList.add("active");
+        }
+        else {
+            playmat.object.classList.add("inactive");
+            playmat.passBtn.classList.remove("active");
+        }
     }
 }
 
@@ -169,8 +180,6 @@ const updateScoreText = () => {
 }
 
 const endGame = (isWin) => {
-    // TODO: Change all playmats to say final score.
-    document.getElementsByClassName("scoreLabel")[1].textContent = "Final Score";
     gameEnded = true;
 
     replayBtn.classList.remove("hidden");

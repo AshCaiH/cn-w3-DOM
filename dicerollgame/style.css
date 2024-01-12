@@ -12,6 +12,7 @@ body {
     user-select: none;
     display: flex;
     flex-direction: column;
+    align-items: center;
 }
 
 h2 {
@@ -22,6 +23,7 @@ h2 {
     display:flex;
     flex-direction: column;
     justify-content: center;
+    align-items: center;;
 }
 
 .dice {
@@ -155,22 +157,41 @@ h2 {
     color: #252D21;
 }
 
+.passBtn:hover.active {
+    background-color: rgb(179, 206, 83);
+}
+
 .multiOff {
     display: none;
 }
 
-/* .roundScore {
-    display: none;
-} */
+.btnHolder {
+    padding: 3px;    
+    margin: 20px;
+    border-radius: 40px;
+    background-color: var(--shadowColour);
+    width: fit-content;
+}
 
 .btn {
+    position:relative;
     background-color: white;
     border-radius: 40px;
-    order: 2;
     width:fit-content;
     padding: 10px 20px 13px;
     align-self: center;
-    margin: 20px;
+    transition: all ease-in 0.1s;
+    top: -6px;
+}
+
+.btn:hover {
+    position:relative;
+    top:-3px;
+}
+
+.btn.selected, .btn:active {
+    position:relative;
+    top:1px;
 }
 
 #playerSelect {
