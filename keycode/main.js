@@ -22,3 +22,4 @@ document.addEventListener("keypress", (e) => {
     }
     textbox.value = e.key;
 });
+
